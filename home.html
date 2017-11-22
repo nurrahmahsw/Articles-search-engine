@@ -1,0 +1,70 @@
+{% extends "bootstrap/base.html" %}
+<html>
+  <head>
+    {% block head %}
+    <title>{% block title %} Similarity {% endblock %}</title>
+    <style>
+        table, td {
+           border: 1px solid black;
+        }
+        .head {
+            text-align: center;
+        }
+    </style>
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    <div class="head">
+        <h1>Finding Similarity</h1>
+    </div>
+    <div align="center">
+      <form method="POST">
+          {{ sform.hidden_tag() }}
+          <fieldset>
+              <legend align="center">Choose algorythm</legend>
+              <form class="form-inline" method="POST" action="">
+                <div class="form-group">
+                  <div class="input-group">
+                    <select name="comp_select" class="selectpicker form-control">
+                      <option value="{{ euclidean }}">euclidean</option>
+                      <option value="{{ cosine }}">cosine</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-default">Go</button>
+                </div>
+              </form>
+          </fieldset>
+      </form>
+        <form method="POST">
+            {{ sform.hidden_tag() }}
+            <fieldset>
+                <legend align="center">Input your filename</legend>
+                <!-- input -->
+                {{ sform.keyword }}
+                <!-- button -->
+                {{ sform.search }}
+                
+            </fieldset>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div align="center">
+    <b>Document Result:</b><br><br>
+        <table>
+            <tr>
+                <td style="text-align:center">Judul</td>
+                <td style="text-align:center">Distance Jauh</td>
+            </tr>
+        {% for v in data %}
+            <tr>
+            <td style="text-align:center">{{ v[0] }}</td>
+            <td style="text-align:center">{{ v[1] }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    {% endblock %}
+  </body>
+</html>
